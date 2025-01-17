@@ -1,45 +1,106 @@
+"""
+.
+"""
 from functools import singledispatch, singledispatchmethod
 
 # Singledispatch: globalna funkcja do logowania zdarzeń
 @singledispatch
 def log_event(event):
+    """
+    .
+    """
     raise NotImplementedError(f"Brak implementacji dla typu: {type(event)}")
 
 # Napisz obsluge zdarzen str
+@log_event.register
+def _(event: str):
+    """
+    .
+    """
+    print(f"Logowanie zdarzenia tekstowego: {event}")
 
 # Napisz obsluge zdarzen int
+@log_event.register
+def _(event: int):
+    """
+    .
+    """
+    print(f"Logowanie zdarzenia liczbowego: {event}")
 
 # Napisz obsluge zdarzen typu dict
-
+@log_event.register
+def _(event: dict):
+    """
+    .
+    """
+    print(f"Logowanie zdarzenia słownikowego: {event}")
 
 # Klasa z metodą używającą singledispatchmethod
 class EventHandler:
+    """
+    .
+    """
     def __init__(self):
-        self.event_count = 0 # uwaga: licznik powiekszac o +1 przy kazdej rejestracji
+        """
+        .
+        """
+        self.event_count = 0  # licznik powiększany o +1 przy każdej rejestracji
 
     @singledispatchmethod
     def handle_event(self, event):
+        """
+        .
+        """
         """Domyślna obsługa zdarzeń"""
         raise NotImplementedError(f"Nieobsługiwany typ zdarzenia: {type(event)}")
 
-
     # Napisz obsluge zdarzen str, pamietaj: self.event_count += 1
+    @handle_event.register
+    def _(self, event: str):
+        """
+        .
+        """
+        self.event_count += 1
+        print(f"Obsługa zdarzenia tekstowego: {event}, liczba zdarzeń: {self.event_count}")
 
     # Napisz obsluge zdarzen int
+    @handle_event.register
+    def _(self, event: int):
+        """
+        .
+        """
+        self.event_count += 1
+        print(f"Obsługa zdarzenia liczbowego: {event}, liczba zdarzeń: {self.event_count}")
 
     # Napisz obsluge zdarzen list
-
+    @handle_event.register
+    def _(self, event: list):
+        """
+        .
+        """
+        self.event_count += 1
+        print(f"Obsługa zdarzenia listowego: {event}, liczba zdarzeń: {self.event_count}")
 
 # Klasa pochodna z nowymi rejestracjami typów
 class DerivedHandler(EventHandler):
+    pass
 
-    # Napisz obsluge zdarzen int
+# Rejestracja nowych typów w DerivedHandler
+@DerivedHandler.handle_event.register(int)
+def derived_handle_int(self, event: int):
+    """
+    .
+    """
+    self.event_count += 1
+    print(f"DerivedHandler zdarzenie liczbowe: {event}, liczba zdarzeń: {self.event_count}")
 
-    # Napisz obsluge zdarzen float
-
-
-
-
+@DerivedHandler.handle_event.register(float)
+def derived_handle_float(self, event: float):
+    """
+    .
+    """
+    self.event_count += 1
+    print(f"Obsługa zdarzenia float: {event}, liczba zdarzeń: {self.event_count}")
 
 # Demonstracja użycia
 if __name__ == "__main__":
