@@ -5,14 +5,15 @@
 import math
 from multipledispatch import dispatch
 
-class Figura:
+
+class Figura:  # pylint: disable=too-few-public-methods
     """."""
 
     def __init__(self):
         print("Figura init")
 
 
-class Prostokat(Figura):
+class Prostokat(Figura):  # pylint: disable=too-few-public-methods
     """."""
 
     def __init__(self, x: int, y: int):
@@ -22,7 +23,7 @@ class Prostokat(Figura):
         print(f"Prostokat init: x={x}, y={y}")
 
 
-class Kwadrat(Prostokat):
+class Kwadrat(Prostokat):  # pylint: disable=too-few-public-methods
     """."""
 
     def __init__(self, x: int):
@@ -30,7 +31,7 @@ class Kwadrat(Prostokat):
         print(f"Kwadrat init: x={x}")
 
 
-class Kolo(Figura):
+class Kolo(Figura):  # pylint: disable=too-few-public-methods
     """."""
 
     def __init__(self, r: float):
@@ -40,7 +41,7 @@ class Kolo(Figura):
 
 
 @dispatch(Figura)
-def pole(instance: Figura) -> float:
+def pole(instance: Figura) -> float:  # pylint: disable=function-redefined,unused-argument
     """
     .
     """
@@ -49,7 +50,7 @@ def pole(instance: Figura) -> float:
 
 
 @dispatch(Prostokat)
-def pole(instance: Prostokat) -> float:
+def pole(instance: Prostokat) -> float:  # pylint: disable=function-redefined,unused-argument
     """
     .
     """
@@ -58,7 +59,7 @@ def pole(instance: Prostokat) -> float:
 
 
 @dispatch(Prostokat, int, int)
-def pole(instance: Prostokat, x: int, y: int) -> float:
+def pole(instance: Prostokat, x: int, y: int) -> float:  # pylint: disable=function-redefined,unused-argument
     """
     .
     """
@@ -69,7 +70,7 @@ def pole(instance: Prostokat, x: int, y: int) -> float:
 
 
 @dispatch(Kwadrat)
-def pole(instance: Kwadrat) -> float:
+def pole(instance: Kwadrat) -> float:  # pylint: disable=function-redefined,unused-argument
     """
     .
     """
@@ -78,7 +79,7 @@ def pole(instance: Kwadrat) -> float:
 
 
 @dispatch(Kwadrat, int)
-def pole(instance: Kwadrat, x: int) -> float:
+def pole(instance: Kwadrat, x: int) -> float:  # pylint: disable=function-redefined,unused-argument
     """
     .
     """
@@ -88,7 +89,7 @@ def pole(instance: Kwadrat, x: int) -> float:
 
 
 @dispatch(Kolo)
-def pole(instance: Kolo) -> float:
+def pole(instance: Kolo) -> float:  # pylint: disable=function-redefined,unused-argument
     """
     .
     """
@@ -97,7 +98,7 @@ def pole(instance: Kolo) -> float:
 
 
 @dispatch(Kolo, float)
-def pole(instance: Kolo, r: float) -> float:
+def pole(instance: Kolo, r: float) -> float:  # pylint: disable=function-redefined,unused-argument
     """
     .
     """
@@ -106,11 +107,11 @@ def pole(instance: Kolo, r: float) -> float:
     return math.pi * instance.r ** 2
 
 
-def pola_powierzchni(lista_figur: list):
+def polaPowierzchni(listaFigur: list):
     """
     .
     """
-    for figura in lista_figur:
+    for figura in listaFigur:
         print(f"Pole obiektu: {pole(figura)}")
 
 
@@ -132,4 +133,4 @@ if __name__ == "__main__":
     print(f"Pole koła po zmianie promienia na 4.0: {pole(d, 4.0)}")
 
     print("\n=== Polimorfizm w czasie wykonywania ===")
-    pola_powierzchni([a, b, c, d])
+    polaPowierzchni([a, b, c, d])
