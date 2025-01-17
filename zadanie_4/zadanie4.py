@@ -6,14 +6,14 @@ import math
 from multipledispatch import dispatch
 
 
-class Figura:  # pylint: disable=too-few-public-methods
+class Figura:
     """."""
 
     def __init__(self):
         print("Figura init")
 
 
-class Prostokat(Figura):  # pylint: disable=too-few-public-methods
+class Prostokat(Figura):
     """."""
 
     def __init__(self, x: int, y: int):
@@ -23,7 +23,7 @@ class Prostokat(Figura):  # pylint: disable=too-few-public-methods
         print(f"Prostokat init: x={x}, y={y}")
 
 
-class Kwadrat(Prostokat):  # pylint: disable=too-few-public-methods
+class Kwadrat(Prostokat):
     """."""
 
     def __init__(self, x: int):
@@ -31,7 +31,7 @@ class Kwadrat(Prostokat):  # pylint: disable=too-few-public-methods
         print(f"Kwadrat init: x={x}")
 
 
-class Kolo(Figura):  # pylint: disable=too-few-public-methods
+class Kolo(Figura):
     """."""
 
     def __init__(self, r: float):
@@ -41,7 +41,7 @@ class Kolo(Figura):  # pylint: disable=too-few-public-methods
 
 
 @dispatch(Figura)
-def pole(instance: Figura) -> float:  # pylint: disable=function-redefined,unused-argument
+def pole(instance: Figura) -> float:
     """
     .
     """
@@ -50,7 +50,7 @@ def pole(instance: Figura) -> float:  # pylint: disable=function-redefined,unuse
 
 
 @dispatch(Prostokat)
-def pole(instance: Prostokat) -> float:  # pylint: disable=function-redefined,unused-argument
+def pole(instance: Prostokat) -> float:
     """
     .
     """
@@ -59,7 +59,7 @@ def pole(instance: Prostokat) -> float:  # pylint: disable=function-redefined,un
 
 
 @dispatch(Prostokat, int, int)
-def pole(instance: Prostokat, x: int, y: int) -> float:  # pylint: disable=function-redefined,unused-argument
+def pole(instance: Prostokat, x: int, y: int) -> float:
     """
     .
     """
@@ -70,7 +70,7 @@ def pole(instance: Prostokat, x: int, y: int) -> float:  # pylint: disable=funct
 
 
 @dispatch(Kwadrat)
-def pole(instance: Kwadrat) -> float:  # pylint: disable=function-redefined,unused-argument
+def pole(instance: Kwadrat) -> float:
     """
     .
     """
@@ -79,7 +79,7 @@ def pole(instance: Kwadrat) -> float:  # pylint: disable=function-redefined,unus
 
 
 @dispatch(Kwadrat, int)
-def pole(instance: Kwadrat, x: int) -> float:  # pylint: disable=function-redefined,unused-argument
+def pole(instance: Kwadrat, x: int) -> float:
     """
     .
     """
@@ -89,7 +89,7 @@ def pole(instance: Kwadrat, x: int) -> float:  # pylint: disable=function-redefi
 
 
 @dispatch(Kolo)
-def pole(instance: Kolo) -> float:  # pylint: disable=function-redefined,unused-argument
+def pole(instance: Kolo) -> float:
     """
     .
     """
@@ -98,7 +98,7 @@ def pole(instance: Kolo) -> float:  # pylint: disable=function-redefined,unused-
 
 
 @dispatch(Kolo, float)
-def pole(instance: Kolo, r: float) -> float:  # pylint: disable=function-redefined,unused-argument
+def pole(instance: Kolo, r: float) -> float:
     """
     .
     """
