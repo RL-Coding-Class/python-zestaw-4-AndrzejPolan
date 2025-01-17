@@ -14,9 +14,9 @@ def fetch_flight_data(databasefile="flights.db"):
     lon_min, lat_min = -85.4277, 32.6407
     lon_max, lat_max = -83.4277, 34.6407
 
-    # Uzupełnij swoimi danymi do autentykacji w OpenSky Network:
-    user_name = 'twojlogin'   # <- Wstaw swój login
-    password = 'twojehaslo'   # <- Wstaw swoje hasło
+    # Dane do autentykacji w OpenSky Network
+    user_name = 'dwfdfWEFDWFF'   # login
+    password = 'SFDFDSSDFadfga'   #  hasło
 
     # Budujemy URL do zapytania REST API
     url_data = (
@@ -26,8 +26,10 @@ def fetch_flight_data(databasefile="flights.db"):
         '&lamax=' + str(lat_max) + '&lomax=' + str(lon_max)
     )
 
-    # Pobieramy dane w formacie JSON
+    # Wysłanie zapytania do serwera
     response = requests.get(url_data).json()
+    print(response)
+
 
     # Jeśli klucza 'states' nie ma lub jest pusty, to kończymy
     if 'states' not in response or response['states'] is None:
