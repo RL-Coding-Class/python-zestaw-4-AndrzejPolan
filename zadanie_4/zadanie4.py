@@ -1,64 +1,136 @@
-from multipledispatch import dispatch
-import math
+"""
+.
+"""
 
-class Figura(object):
+import math
+from multipledispatch import dispatch
+
+
+class Figura:
+    """."""
+
     def __init__(self):
         print("Figura init")
 
+
 class Prostokat(Figura):
+    """."""
+
     def __init__(self, x: int, y: int):
-        # dokoncz definicje
+        super().__init__()
+        self.x = x
+        self.y = y
+        print(f"Prostokat init: x={x}, y={y}")
+
 
 class Kwadrat(Prostokat):
+    """."""
+
     def __init__(self, x: int):
-        # dokoncz definicje
+        super().__init__(x, x)
+        print(f"Kwadrat init: x={x}")
+
 
 class Kolo(Figura):
+    """."""
+
     def __init__(self, r: float):
-        # dokoncz definicje
+        super().__init__()
+        self.r = r
+        print(f"Kolo init: r={r}")
 
-# Funkcje pole
+
 @dispatch(Figura)
-def pole(instance: Figura):
+def pole(instance: Figura) -> float:
+    """
+    .
+    """
     print("Pole: Figura")
-    return 0
-
-# Napisz wersje 'pole' dla:
-# - Prostokat (bez podania argumentów boków)
-# - Prostokat (z podaniem argumentów boków jako int, int)
-# - Kwadrat (bez podania argumentów boku)
-# - Kwadrat (z podaniem argumentów boku jako int)
-# - Kolo (bez podania argumentów promienia)
-# - Kolo (z podaniem argumentów promienia jako float)
-# Uzywaj print() do weryfikacji wywolan
+    return 0.0
 
 
+@dispatch(Prostokat)
+def pole(instance: Prostokat) -> float:
+    """
+    .
+    """
+    print("Pole: Prostokat bez podania boków")
+    return float(instance.x * instance.y)
 
 
+@dispatch(Prostokat, int, int)
+def pole(instance: Prostokat, x: int, y: int) -> float:
+    """
+    .
+    """
+    print("Pole: Prostokat z podaniem boków")
+    instance.x = x
+    instance.y = y
+    return float(instance.x * instance.y)
 
-# Polimorfizm w czasie wykonywania
-def polaPowierzchni(listaFigur):
-    for i in listaFigur:
-        print(f"Pole obiektu: {pole(i)}")
+
+@dispatch(Kwadrat)
+def pole(instance: Kwadrat) -> float:
+    """
+    .
+    """
+    print("Pole: Kwadrat bez podania boku")
+    return float(instance.x ** 2)
+
+
+@dispatch(Kwadrat, int)
+def pole(instance: Kwadrat, x: int) -> float:
+    """
+    .
+    """
+    print("Pole: Kwadrat z podaniem boku")
+    instance.x = x
+    return float(instance.x ** 2)
+
+
+@dispatch(Kolo)
+def pole(instance: Kolo) -> float:
+    """
+    .
+    """
+    print("Pole: Kolo bez podania promienia")
+    return math.pi * instance.r ** 2
+
+
+@dispatch(Kolo, float)
+def pole(instance: Kolo, r: float) -> float:
+    """
+    .
+    """
+    print("Pole: Kolo z podaniem promienia")
+    instance.r = r
+    return math.pi * instance.r ** 2
+
+
+def polaPowierzchni(listaFigur: list):
+    """
+    .
+    """
+    for figura in listaFigur:
+        print(f"Pole obiektu: {pole(figura)}")
+
 
 if __name__ == "__main__":
-    # Tworzenie obiektów
     print("=== Tworzenie obiektów ===")
-    a, b, c, d = Figura(), Prostokat(2, 4), Kwadrat(2), Kolo(3)
+    a = Figura()
+    b = Prostokat(2, 4)
+    c = Kwadrat(2)
+    d = Kolo(3.0)
 
-    # Wywołania funkcji pole
     print("\n=== Wywołania funkcji pole ===")
     print(f"Pole prostokąta (2x4): {pole(b)}")
     print(f"Pole kwadratu (bok=2): {pole(c)}")
-    print(f"Pole koła (r=3): {pole(d)}")
+    print(f"Pole koła (r=3.0): {pole(d)}")
 
-    # Zmiana wymiarów za pomocą funkcji pole
     print("\n=== Zmiana wymiarów ===")
     print(f"Pole prostokąta po zmianie na 5x6: {pole(b, 5, 6)}")
     print(f"Pole kwadratu po zmianie boku na 7: {pole(c, 7)}")
-    print(f"Pole koła po zmianie promienia na 4: {pole(d, 4.0)}")
+    print(f"Pole koła po zmianie promienia na 4.0: {pole(d, 4.0)}")
 
-    # Polimorfizm
     print("\n=== Polimorfizm w czasie wykonywania ===")
     polaPowierzchni([a, b, c, d])
-
